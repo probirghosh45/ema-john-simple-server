@@ -37,11 +37,26 @@ client.connect(err => {
    })
 
    app.get('/products',(req,res)=>{
-       productCollection.find({}).limit(30)
+       productCollection.find({})
        .toArray((err,documents)=>{
            res.send(documents);
        })
    })
+
+   app.get('/product/:key',(req,res)=>{
+       productCollection.find({key:req.params.key})
+       .toArray((err,documents)=>{
+           res.send(documents[0]);
+       })
+   })
+
+   app.post('/productsByKeys', (req, res) => {
+    const productKeys = req.body;
+    productsCollection.find({key: { $in: productKeys} })
+    .toArray( (err, documents) => {
+        res.send(documents);
+    })
+})
 
 
 });

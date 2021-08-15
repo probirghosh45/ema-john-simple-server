@@ -50,14 +50,14 @@ client.connect(err => {
        })
    })
 
-   app.post('/productsByKeys', (req, res) => {
+
+app.post('/productsByKeys', (req, res) => {
     const productKeys = req.body;
-    productsCollection.find({key: { $in: productKeys} })
+    productCollection.find({key: { $in: productKeys} })
     .toArray( (err, documents) => {
         res.send(documents);
     })
 })
-
 
 });
 
